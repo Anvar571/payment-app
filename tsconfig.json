@@ -1,3 +1,16 @@
 {
-  "compilerOptions": {}
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./src",
+    "rootDir": ".",
+    "noImplicitAny": true,
+    "target": "ESNext",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  }
 }
