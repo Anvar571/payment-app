@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,91 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @db.Uuid @default(uuid())
+  firstName String
+  lastName String
+  phone_number String @unique
+  password String
+  status UserStatus
+  create_at DateTime @default(now())
+
+  @@map("users")
+}
+
+model Marchants {
+  id String @id @db.Uuid
+  name String
+  account_number String
+  merchant_key String
+  bank_account String
+  status MarchantStatus
+
+  create_at DateTime
+
+  @@map("marchants")
+}
+
+model UserCards {
+  id String @id @db.Uuid
+  user_id String
+  card_number Int @unique
+  card_token String
+  card_type String
+  expire_date DateTime
+  bank_id String
+  status UserCardStatus
+
+  created_at DateTime @default(now())
+
+  @@map("usercards")
+}
+
+model Services {
+  id String @id @db.Uuid
+  name String
+  service_type ServiceType
+}
+
+model Transactions {
+  id String @id @db.Uuid
+  user_id String
+  service_id String
+  amount Int
+  status TransactionStatus
+
+  created_at DateTime @default(now())
+  
+  @@map("transactions")
+}
+
+// enums
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
+enum UserCardStatus {
+  ACTIVE
+  BLOCKED
+}
+
+enum MarchantStatus {
+  ACTIVE
+  BLOCKED
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum ServiceType {
+  UTILITY
+  P2P
+  MOBILE_OPERATORS
+  INTERNET_PROVIDERS
 }
