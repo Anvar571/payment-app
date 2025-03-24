@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "",
+    "prisma:seed:run": "npx prisma db seed",
+    "prisma:generate": "npx prisma migrate dev --name init && npx prisma generate ",
+    "prisma:run": "pnpm prisma:generate && pnpm prisma:seed:run",
+    "start": "ts-node ./src/main.ts",
     "prepare": "husky"
   },
   "keywords": [],
@@ -25,5 +28,8 @@
     "express": "^4.21.2",
     "prisma": "^6.5.0",
     "zod": "^3.24.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }
